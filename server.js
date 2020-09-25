@@ -20,7 +20,7 @@ io.on("connection", async (socket) => {
   socket.on(LOAD_ROOM, async () => {
     const data = await Room.find({ status: "ACTIVE" })
       .select("name isLock")
-      .sort({ createAt: "desc" });
+      .sort({ createdAt: "desc" });
     io.emit(LOAD_ROOM, data);
   });
 
@@ -32,7 +32,7 @@ io.on("connection", async (socket) => {
   // Load Message from room
   socket.on(LOAD_MESSAGE_FROM_ROOM, async (id) => {
     const data = await Message.find({ status: "ACTIVE", room: id }).select(
-      "name createAt message "
+      "name createdAt message "
     );
     io.emit(LOAD_MESSAGE_FROM_ROOM, data);
   });
